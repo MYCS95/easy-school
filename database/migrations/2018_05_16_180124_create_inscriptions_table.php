@@ -15,6 +15,7 @@ class CreateInscriptionsTable extends Migration
     {
         Schema::create('inscriptions', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('montant');
             $table->timestamps();
         });
     }

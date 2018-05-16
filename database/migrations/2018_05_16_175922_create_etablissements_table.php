@@ -15,6 +15,11 @@ class CreateEtablissementsTable extends Migration
     {
         Schema::create('etablissements', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nom');
+            $table->string('adresse');
+            $table->integer('code')->unique();
+            $table->string('email')->unique();
+            $table->string('telephone')->unique();
             $table->timestamps();
         });
     }

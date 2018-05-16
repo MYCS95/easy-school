@@ -15,6 +15,7 @@ class CreateStatutsTable extends Migration
     {
         Schema::create('statuts', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('libelle')->unique();
             $table->timestamps();
         });
     }

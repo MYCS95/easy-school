@@ -15,6 +15,7 @@ class CreateCyclesTable extends Migration
     {
         Schema::create('cycles', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('libelle')->unique();
             $table->timestamps();
         });
     }

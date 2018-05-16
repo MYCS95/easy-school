@@ -15,6 +15,9 @@ class CreateComptesTable extends Migration
     {
         Schema::create('comptes', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('login')->unique();
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
