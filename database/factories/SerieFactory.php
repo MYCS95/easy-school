@@ -2,8 +2,8 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\=Serie::class, function (Faker $faker) {
+$factory->define(App\Serie::class, function (Faker $faker) {
     return [
-        //
+        'libelle' => $faker->unique()->word
     ];
 });
