@@ -11,6 +11,8 @@ class CycleTableSeeder extends Seeder
      */
     public function run()
     {
-        //TODO: implementer le seed de la table cycle
+        App\Cycle::truncate();
+
+        factory(App\Cycle::class, 3)->create();
     }
 }

@@ -16,7 +16,11 @@ class DatabaseSeeder extends Seeder
             StatutTableSeeder::class,
             ServiceTableSeeder::class,
             CompteTableSeeder::class,
-            UtilisateurTableSeeder::class
+            UtilisateurTableSeeder::class,
+            AnneeScolaireTableSeeder::class,
+            CycleTableSeeder::class,
+            SerieTableSeeder::class,
+            NiveauTableSeeder::class
         ]);
     }
 }

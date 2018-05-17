@@ -4,6 +4,6 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Cycle::class, function (Faker $faker) {
     return [
-        'libelle' => $faker->word
+        'libelle' => $faker->unique()->word
     ];
 });

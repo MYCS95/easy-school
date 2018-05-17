@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Niveau extends Model
 {
     /**
+     * Activer l'assignation multiple.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * Le montant de l'inscription au niveau dépend de l'année scolaire.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany App\AnneeScolaire
@@ -81,6 +88,6 @@ class Niveau extends Model
      */
     public function cycle()
     {
-        return $this->belongsTo('App\Cycle');
+        return $this->belongsTo(Cycle::class);
     }
 }

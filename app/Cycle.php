@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cycle extends Model
 {
+    protected $guarded = [];
+
     /**
      * Un cycle a plusieurs filières.
      *
@@ -23,6 +25,6 @@ class Cycle extends Model
      */
     public function niveaux()
     {
-        return $this->hasMany('App\Niveau');
+        return $this->hasMany('App\Niveau', 'cycle_id');
     }
 }

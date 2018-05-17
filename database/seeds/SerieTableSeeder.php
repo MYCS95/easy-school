@@ -11,6 +11,8 @@ class SerieTableSeeder extends Seeder
      */
     public function run()
     {
-        //TODO: implémenter le seed de la table Serie
+        App\Serie::truncate();
+
+        factory(App\Serie::class, 10)->create();
     }
 }

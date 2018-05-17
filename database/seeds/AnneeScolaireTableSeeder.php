@@ -11,6 +11,8 @@ class AnneeScolaireTableSeeder extends Seeder
      */
     public function run()
     {
-        //TODO: implémenter le seed de l'année scolaire
+        App\AnneeScolaire::truncate();
+
+        factory(App\AnneeScolaire::class, 3)->create();
     }
 }
