@@ -15,10 +15,12 @@ class CreateClassesTable extends Migration
     {
         Schema::create('classes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('niveau_id');
-            $table->integer('filiere_id');
+            $table->unsignedInteger('niveau_id');
+            $table->unsignedInteger('filiere_id');
             $table->string('libelle')->unique();
             $table->timestamps();
+
+
         });
     }
 

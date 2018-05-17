@@ -15,11 +15,13 @@ class CreateScolaritesTable extends Migration
     {
         Schema::create('scolarites', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('anneescolaire_id');
-            $table->integer('filiere_id');
-            $table->integer('niveau_id');
+            $table->unsignedInteger('anneescolaire_id');
+            $table->unsignedInteger('filiere_id');
+            $table->unsignedInteger('niveau_id');
             $table->unsignedInteger('montant');
             $table->timestamps();
+
+
         });
     }
 

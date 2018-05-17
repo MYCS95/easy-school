@@ -14,15 +14,20 @@ class CreateUtilisateursTable extends Migration
     public function up()
     {
         Schema::create('utilisateurs', function (Blueprint $table) {
+            // Les colonnes
             $table->increments('id');
-            $table->integer('compte_id');
-            $table->integer('service_id');
+            $table->unsignedInteger('compte_id');
+            $table->unsignedInteger('service_id');
             $table->string('nom');
             $table->string('prenoms');
             $table->string('email')->unique();
             $table->string('telephone')->unique();
             $table->timestamps();
+
+
         });
+
+
     }
 
     /**
