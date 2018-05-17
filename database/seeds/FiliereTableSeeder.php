@@ -11,6 +11,12 @@ class FiliereTableSeeder extends Seeder
      */
     public function run()
     {
-        //TODO: implémenter le seed de la table filiere
+        App\Filiere::truncate();
+
+        $cycle = App\Cycle::find(2);
+
+        factory(App\Filiere::class, 10)->create([
+            'cycle_id' => $cycle->id
+        ]);
     }
 }

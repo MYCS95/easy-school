@@ -47,7 +47,5 @@ class UtilisateurTableSeeder extends Seeder
                 'service_id' => $service->id, // On associe l'utilisateur au service
             ]);
         }
-
-
     }
 }

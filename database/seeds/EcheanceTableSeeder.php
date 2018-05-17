@@ -11,6 +11,15 @@ class EcheanceTableSeeder extends Seeder
      */
     public function run()
     {
-        //TODO: implémenter le seed de la table Echeance
+        App\Echeance::truncate();
+
+        $scolarites = App\Scolarite::all();
+
+        foreach ($scolarites as $scolarite)
+        {
+            factory(App\Echeance::class, 6)->create([
+                'scolarite_id' => $scolarite->id
+            ]);
+        }
     }
 }

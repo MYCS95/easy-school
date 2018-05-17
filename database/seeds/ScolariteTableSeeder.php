@@ -11,6 +11,21 @@ class ScolariteTableSeeder extends Seeder
      */
     public function run()
     {
-        //TODO: implémenter le seed de la table Scolarite
+        App\Scolarite::truncate();
+
+        // On va créer 5 inscriptions qui dépendent du niveau et de la filiere et de l'année scolaire
+        $anneescolaires = App\AnneeScolaire::all();
+        $niveaux = App\Niveau::all();
+
+        foreach ($anneescolaires as $anneescolaire)
+        {
+            foreach ($niveaux as $niveau)
+            {
+                factory(App\Scolarite::class, 1)->create([
+                    'anneescolaire_id' => $anneescolaire->id,
+                    'niveau_id' => $niveau->id
+                ]);
+            }
+        }
     }
 }

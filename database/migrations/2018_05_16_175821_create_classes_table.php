@@ -16,7 +16,7 @@ class CreateClassesTable extends Migration
         Schema::create('classes', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('niveau_id');
-            $table->unsignedInteger('filiere_id');
+            $table->unsignedInteger('filiere_id')->nullable();
             $table->string('libelle')->unique();
             $table->timestamps();
 

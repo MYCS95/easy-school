@@ -25,7 +25,12 @@ class DatabaseSeeder extends Seeder
             AnneeScolaireTableSeeder::class,
             CycleTableSeeder::class,
             SerieTableSeeder::class,
-            NiveauTableSeeder::class
+            NiveauTableSeeder::class,
+            FiliereTableSeeder::class,
+            ClasseTableSeeder::class,
+            InscriptionTableSeeder::class,
+            ScolariteTableSeeder::class,
+            EcheanceTableSeeder::class
         ]);
 
         // supposed to only apply to a single connection and reset it's self

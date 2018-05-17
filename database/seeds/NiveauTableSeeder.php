@@ -24,38 +24,24 @@ class NiveauTableSeeder extends Seeder
             ]);
         }
 
+
         // On choisi un cycle au harsard
         $cycle = App\Cycle::find(1);
 
         $niveaux = $cycle->niveaux()->inRandomOrder()->take(3)->get();
+        $series = App\Serie::inRandomOrder()->take(3)->get();
 
         // On associe les séries aux niveaux de ce cyle
-        foreach ($niveaux as $niveau)
+        foreach ($niveaux as $index)
         {
-            $series = App\Serie::inRandomOrder()->take(3)->get();
+            $niveau = $niveaux->pop();
+            $serie = $series->pop();
 
-            foreach($series as $s) {
-                $s->niveau_id = $niveau->id;
+            App\Niveau_Serie::create([
+                'niveau_id' => $niveau->id,
+                'serie_id' => $serie->id
+            ]);
 
-                $s->save();
-            }
         }
-
-        $cycle = App\Cycle::find(2);
-
-        $niveaux = $cycle->niveaux()->inRandomOrder()->take(3)->get();
-
-        // On associe les séries aux niveaux de ce cyle
-        foreach ($niveaux as $niveau)
-        {
-            $filieres = App\Filiere::inRandomOrder()->take(3)->get();
-
-            foreach($filieres as $f) {
-                $f->niveau_id = $niveau->id;
-
-                $f->save();
-            }
-        }
-
     }
 }

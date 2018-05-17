@@ -11,7 +11,6 @@ class StatutTableSeeder extends Seeder
      */
     public function run()
     {
-        //TODO: implémenter le seed de la table Statut
         App\Statut::truncate();
 
         factory(App\Statut::class, 3)->create();

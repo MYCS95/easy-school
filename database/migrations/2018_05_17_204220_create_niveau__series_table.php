@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInscriptionsTable extends Migration
+class CreateNiveauSeriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateInscriptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('inscriptions', function (Blueprint $table) {
+        Schema::create('niveau__series', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('anneescolaire_id');
             $table->unsignedInteger('niveau_id');
-            $table->unsignedInteger('filiere_id')->nullable();
-            $table->unsignedInteger('montant');
+            $table->unsignedInteger('serie_id');
             $table->timestamps();
-
-
         });
     }
 
@@ -32,6 +28,6 @@ class CreateInscriptionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inscriptions');
+        Schema::dropIfExists('niveau__series');
     }
 }
