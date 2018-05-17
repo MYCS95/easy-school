@@ -21,7 +21,6 @@ class CreateUtilisateursTable extends Migration
             $table->string('prenoms');
             $table->string('email')->unique();
             $table->string('telephone')->unique();
-            $table->boolean('estAdministrateur');
             $table->timestamps();
         });
     }
