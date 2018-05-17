@@ -15,6 +15,7 @@ class CreateEcheancesTable extends Migration
     {
         Schema::create('echeances', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('scolarite_id');
             $table->date('dateEcheance');
             $table->timestamps();
         });

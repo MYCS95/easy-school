@@ -15,6 +15,9 @@ class CreateInscriptionsTable extends Migration
     {
         Schema::create('inscriptions', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('anneescolaire_id');
+            $table->integer('niveau_id');
+            $table->integer('filiere_id');
             $table->unsignedInteger('montant');
             $table->timestamps();
         });

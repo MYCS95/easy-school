@@ -15,6 +15,7 @@ class CreateFilieresTable extends Migration
     {
         Schema::create('filieres', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('cycle_id');
             $table->string('libelle')->unique();
             $table->timestamps();
         });
