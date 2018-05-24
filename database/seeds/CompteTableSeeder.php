@@ -13,13 +13,12 @@ class CompteTableSeeder extends Seeder
     {
         App\Compte::truncate();
 
-        $statuts = App\Statut::orderByRaw("RAND()")->get();
+        $statuts = App\Statut::inRandomOrder()->get();
 
         foreach ($statuts as $statut)
         {
             factory(App\Compte::class, 5)->create([
-                'statut_id' => $statut->id,
-                'utilisateur_id' => null
+                'statut_id' => $statut->id
             ]);
         }
 

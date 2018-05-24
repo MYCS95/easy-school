@@ -24,6 +24,6 @@ class Compte extends Model
      */
     public function utilisateur()
     {
-        return $this->belongsTo('App\Utilisateur');
+        return $this->hasOne('App\Utilisateur');
     }
 }

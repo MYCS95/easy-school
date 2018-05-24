@@ -13,7 +13,7 @@ class UtilisateurTableSeeder extends Seeder
     {
         App\Utilisateur::truncate();
 
-        $statut = App\Statut::orderByRaw("RAND()")->first();
+        $statut = App\Statut::inRandomOrder()->first();
         $compte = App\Compte::create([
             'login' => 'samson.molou',
             'statut_id' => $statut->id,
@@ -22,7 +22,7 @@ class UtilisateurTableSeeder extends Seeder
             'estAdministrateur' => true
         ]);
 
-        $service = App\Service::orderByRaw("RAND()")->first();
+        $service = App\Service::inRandomOrder()->first();
         factory(App\Utilisateur::class, 1)->create([
             'compte_id' => $compte->id,
             'service_id' => $service->id,
@@ -33,7 +33,7 @@ class UtilisateurTableSeeder extends Seeder
         ]);
 
         // On récupère la liste des comptes de façon aléatoire afin de les associés aux utilisateurs
-        $comptes = App\Compte::orderByRaw("RAND()")->get();
+        $comptes = App\Compte::inRandomOrder()->get();
 
         foreach ($comptes as $index)
         {
@@ -41,10 +41,10 @@ class UtilisateurTableSeeder extends Seeder
             $compte = $comptes->pop();
 
             // On selectionne un service
-            $service = App\Service::orderByRaw("RAND()")->first();
+            $service = App\Service::inRandomOrder()->first();
             factory(App\Utilisateur::class, 1)->create([
-               'compte_id' => $compte->id, // On associe l'utilisateur au compte
-                'service_id' => $service->id, // On associe l'utilisateur au service
+                'compte_id' => $compte->id, // On associe l'utilisateur au compte
+                'service_id' => $service->id, // On associe l'utilisateur a son service
             ]);
         }
     }
