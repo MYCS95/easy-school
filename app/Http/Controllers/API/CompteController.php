@@ -43,7 +43,7 @@ class CompteController extends Controller
      */
     public function store(Request $request)
     {
-
+        // Compte storage will be provided by the controller of Utilisateur model
     }
 
     /**
@@ -52,9 +52,9 @@ class CompteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Compte $compte)
     {
-        //
+        return new CompteResource($compte);
     }
 
     /**
@@ -64,9 +64,18 @@ class CompteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Compte $compte)
     {
-        //
+        // Check if current user is an admin or the owner of account
+        if ($request->user()->estAdministrateur !== "1")
+        {
+            return response()->json([
+                'error' => 'Only an administrator can edit account'
+            ], 403);
+        }
+
+        $compte->update($request->only(['login', 'password', 'statut_id', 'estAdministrateur']));
+        return new CompteResource($compte);
     }
 
     /**
@@ -75,8 +84,10 @@ class CompteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Compte $compte)
     {
-        //
+        $compte->delete();
+
+        return response()->json(null, 204);
     }
 }

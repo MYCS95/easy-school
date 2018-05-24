@@ -20,6 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 */
 Route::group(['middleware' => 'auth:api'], function(){
     Route::apiResource('comptes', 'API\CompteController');
+    Route::get('comptes/{compte}/statut', 'API\CompteController@statut');
+    Route::get('comptes/{compte}/utilisateur');
 });
 
 
@@ -32,6 +34,6 @@ Route::group([
       'middleware' => 'auth:api'
     ], function() {
         Route::get('logout', 'API\AuthController@logout');
-        Route::get('utilisateur', 'API\AuthController@user');
+        Route::get('user', 'API\AuthController@user');
     });
 });
