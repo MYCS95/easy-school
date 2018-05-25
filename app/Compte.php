@@ -29,6 +29,13 @@ class Compte extends Model implements
     ];
 
     /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/home';
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array

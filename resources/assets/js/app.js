@@ -16,7 +16,11 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('login-component', require('./components/auth/LoginComponent.vue'));
+Vue.component('navbar-component', require('./components/NavbarComponent'));
 
 const app = new Vue({
     el: '#app'
 });
+
+
