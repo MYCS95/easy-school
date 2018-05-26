@@ -1,24 +1,41 @@
 <template>
-    <div class="nav-fixed">
-        <nav class="light-blue darken-4">
-            <div class="nav-wrapper container" style="width:100%;">
-                <a href="" class="brand-logo flow-text">App Name</a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a class="blact-text" href="">Se connecter</a></li>
-                    <li><a class="dropdown-trigger" href="#!" data-target="dropdownAccount"><i class="material-icons right">arrow_drop_down</i>Mon compte</a></li>
-                </ul>
-            </div>
-        </nav>
-        <ul id="dropdownAccount" class="dropdown-content">
-            <li>Deconnexion</li>
-        </ul>
-    </div>
+    <ui-toolbar
+        brand="Easy School"
+        progress-position="top"
+        type="colored"
+        text-color="white"
+        title="Login"
+        :raised="true">
+
+        <div slot="actions">
+            <ui-button
+                color="secondary"
+                size="normal"
+                type="secondary"
+                :disableRipple="true"
+                v-on:click="seConnecter">
+                Se connecter
+            </ui-button>
+        </div>
+    </ui-toolbar>
 </template>
+
 
 <script>
     export default {
-        name: "NavbarComponent"
+        name: "NavbarComponent",
+        mounted() {
+            console.log('Navbar component mounted.')
+        },
+
+        methods: {
+            seConnecter: function () {
+                console.log("seConnecter");
+                this.$router.push({name: 'login'});
+            }
+        }
     }
+
 </script>
 
 <style scoped>

@@ -19,5 +19,11 @@
         "materialize-css": "^0.100.2",
         "popper.js": "^1.12",
         "vue": "^2.5.7"
+    },
+    "dependencies": {
+        "es6-promise": "^4.2.4",
+        "keen-ui": "^1.0.1",
+        "vue-router": "^3.0.1",
+        "vuex": "^3.0.1"
     }
 }
