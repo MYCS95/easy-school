@@ -1,5 +1,5 @@
 <template>
-    <div class="container" style="width:40%;">
+    <div class="container" style="width:50%;">
         <div class="center-align bold">
             <span class="center-align bold flow-text" style="font-weight:bold;">Connectez-vous !</span>
         </div>
@@ -23,7 +23,7 @@
 
         <ui-button color="primary" size="normal" raised v-on:click="seConnecter">Se connecter</ui-button>
 
-        <ui-button color="primary" size="normal"raised v-on:click="motDePasseOublie">Mot de passe oublié ?</ui-button>
+        <ui-button color="primary" size="normal" raised v-on:click="motDePasseOublie">Mot de passe oublié ?</ui-button>
     </div>
 </template>
 

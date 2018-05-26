@@ -50,7 +50,13 @@ const store = new Vuex.Store({
 
     getters: {
         isAuthenticated: state => {
-            return state.token || ''
+            return !!state.token
+        },
+        isNotAuthenticated: state => {
+            if(!state.token)
+                return true
+            else
+                return false
         },
         authState: state => state.status
     },
@@ -116,7 +122,7 @@ const store = new Vuex.Store({
         AUTH_ERROR (state) {
             state.status = 'error'
         }
-    }
+    },
 })
 
 const ifNotAuthenticated = (to, from, next) => {
@@ -166,6 +172,6 @@ const app = new Vue({
     el: '#app',
     components: { Home, Login, Dashboard },
     router,
-    store
+    store,
 });
 

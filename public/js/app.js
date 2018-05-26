@@ -11074,12 +11074,6 @@ process.umask = function() { return 0; };
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(28);
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
@@ -11181,7 +11175,7 @@ module.exports = defaults;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22147,7 +22141,7 @@ module.exports = Vue;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(18).setImmediate))
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports) {
 
 /*
@@ -22229,7 +22223,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22238,6 +22232,12 @@ function toComment(sourceMap) {
 
 module.exports = __webpack_require__(27).polyfill();
 
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(28);
 
 /***/ }),
 /* 10 */
@@ -22549,7 +22549,7 @@ module.exports = __webpack_require__(74);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_keen_ui__ = __webpack_require__(21);
@@ -22557,9 +22557,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_keen_ui_dist_keen_ui_css__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_keen_ui_dist_keen_ui_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_keen_ui_dist_keen_ui_css__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuex__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_es6_promise_auto__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_es6_promise_auto__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_es6_promise_auto___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_es6_promise_auto__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_admin_Dashboard__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_admin_Dashboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__views_admin_Dashboard__);
@@ -22583,7 +22583,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __webpack_require__(46);
 
-window.Vue = __webpack_require__(7);
+window.Vue = __webpack_require__(6);
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_2_keen_ui___default.a);
@@ -22618,7 +22618,10 @@ var store = new __WEBPACK_IMPORTED_MODULE_4_vuex__["a" /* default */].Store({
 
     getters: {
         isAuthenticated: function isAuthenticated(state) {
-            return state.token || '';
+            return !!state.token;
+        },
+        isNotAuthenticated: function isNotAuthenticated(state) {
+            if (!state.token) return true;else return false;
         },
         authState: function authState(state) {
             return state.status;
@@ -41848,7 +41851,7 @@ if(false) {
 /* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(8)(false);
+exports = module.exports = __webpack_require__(7)(false);
 // imports
 
 
@@ -44453,7 +44456,7 @@ return Promise$1;
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(10);
 var Axios = __webpack_require__(30);
-var defaults = __webpack_require__(6);
+var defaults = __webpack_require__(5);
 
 /**
  * Create an instance of Axios
@@ -44536,7 +44539,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(6);
+var defaults = __webpack_require__(5);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(39);
 var dispatchRequest = __webpack_require__(40);
@@ -45075,7 +45078,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(41);
 var isCancel = __webpack_require__(13);
-var defaults = __webpack_require__(6);
+var defaults = __webpack_require__(5);
 var isAbsoluteURL = __webpack_require__(42);
 var combineURLs = __webpack_require__(43);
 
@@ -45351,7 +45354,7 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(5);
+window.axios = __webpack_require__(9);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -78235,7 +78238,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_es6_promise_auto__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_es6_promise_auto__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_es6_promise_auto___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_es6_promise_auto__);
 //
 //
@@ -78312,7 +78315,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "container", staticStyle: { width: "40%" } },
+    { staticClass: "container", staticStyle: { width: "50%" } },
     [
       _vm._m(0),
       _vm._v(" "),
@@ -78490,12 +78493,12 @@ if(false) {
 /* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(8)(false);
+exports = module.exports = __webpack_require__(7)(false);
 // imports
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -78790,17 +78793,58 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
+
+var account_options = [{
+    label: 'Se déconnecter'
+}];
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "NavbarComponent",
+
+    data: function data() {
+        return {
+            app_name: "EASY SCHOOL -Test",
+            account_options: account_options
+        };
+    },
+
+
+    computed: {
+        is_authenticated: function is_authenticated() {
+            return this.$store.getters.isAuthenticated;
+        }
+    },
+
     mounted: function mounted() {
         console.log('Navbar component mounted.');
     },
 
 
     methods: {
-        seConnecter: function seConnecter() {
-            console.log("seConnecter");
+        se_connecter: function se_connecter() {
             this.$router.push({ name: 'login' });
         }
     }
@@ -78818,7 +78862,6 @@ var render = function() {
     "ui-toolbar",
     {
       attrs: {
-        brand: "Easy School",
         "progress-position": "top",
         type: "colored",
         "text-color": "white",
@@ -78827,23 +78870,60 @@ var render = function() {
       }
     },
     [
+      _c("div", { attrs: { slot: "brand" }, slot: "brand" }, [
+        _vm._v("\n        " + _vm._s(_vm.app_name) + "\n    ")
+      ]),
+      _vm._v(" "),
       _c(
         "div",
         { attrs: { slot: "actions" }, slot: "actions" },
         [
-          _c(
-            "ui-button",
-            {
-              attrs: {
-                color: "secondary",
-                size: "normal",
-                type: "secondary",
-                disableRipple: true
-              },
-              on: { click: _vm.seConnecter }
-            },
-            [_vm._v("\n            Se connecter\n        ")]
-          )
+          _vm.is_authenticated
+            ? _c(
+                "ui-icon-button",
+                {
+                  ref: "dropdownAccount",
+                  attrs: {
+                    color: "white",
+                    "has-dropdown": "",
+                    icon: "account_circle",
+                    size: "large"
+                  }
+                },
+                [
+                  _c("ui-menu", {
+                    attrs: {
+                      slot: "dropdown",
+                      "contains-focus": "",
+                      "has-icons": "",
+                      options: _vm.account_options
+                    },
+                    on: {
+                      close: function($event) {
+                        _vm.$refs.dropdownAccount.closeDropdown()
+                      }
+                    },
+                    slot: "dropdown"
+                  })
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.is_authenticated
+            ? _c(
+                "ui-button",
+                {
+                  attrs: {
+                    color: "secondary",
+                    size: "large",
+                    type: "secondary"
+                  },
+                  on: { click: _vm.se_connecter }
+                },
+                [_vm._v("\n            Se connecter\n        ")]
+              )
+            : _vm._e()
         ],
         1
       )
