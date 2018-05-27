@@ -3,15 +3,15 @@
         progress-position="top"
         type="colored"
         text-color="white"
-        title="Login"
-        :raised="true">
+        :raised="true"
+        :loading="is_loading">
 
         <div slot="brand">
             {{ app_name }}
         </div>
         <div slot="actions">
 
-            <ui-icon-button
+            <ui-button
                 color="white"
                 has-dropdown
                 icon="account_circle"
@@ -25,8 +25,8 @@
                     :options="account_options"
                     @close="$refs.dropdownAccount.closeDropdown()">
                 </ui-menu>
-            </ui-icon-button>
-
+                {{ nom_utilisateur }}
+            </ui-button>
 
             <ui-button
                 color="secondary"
@@ -37,8 +37,6 @@
             >
                 Se connecter
             </ui-button>
-
-
         </div>
     </ui-toolbar>
 </template>
@@ -57,13 +55,19 @@
         data() {
             return {
                 app_name: process.env.MIX_APP_NAME,
-                account_options
+                account_options,
             };
         },
 
         computed: {
             is_authenticated() {
                 return this.$store.getters.isAuthenticated
+            },
+            nom_utilisateur() {
+                return this.$store.getters.nomUtilisateur
+            },
+            is_loading() {
+                return this.$store.getters.isLoading
             }
         },
 

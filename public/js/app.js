@@ -22613,18 +22613,22 @@ if (token) {
 var store = new __WEBPACK_IMPORTED_MODULE_4_vuex__["a" /* default */].Store({
     state: {
         token: localStorage.getItem('user-token') || '',
-        status: ''
+        status: '',
+        loading: false
     },
 
     getters: {
         isAuthenticated: function isAuthenticated(state) {
             return !!state.token;
         },
-        isNotAuthenticated: function isNotAuthenticated(state) {
-            if (!state.token) return true;else return false;
+        nomUtilisateur: function nomUtilisateur() {
+            return "MOLOU YAO CLAIR SAMSON";
         },
         authState: function authState(state) {
             return state.status;
+        },
+        isLoading: function isLoading(state) {
+            return state.loading;
         }
     },
 
@@ -22636,6 +22640,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_4_vuex__["a" /* default */].Store({
             return new Promise(function (resolve, reject) {
                 //Une promesse pour la redirection
                 commit('AUTH_REQUEST');
+                commit('LOADING', true);
                 __WEBPACK_IMPORTED_MODULE_6_axios___default()({
                     method: 'post',
                     url: 'api/auth/login',
@@ -22654,6 +22659,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_4_vuex__["a" /* default */].Store({
                     localStorage.setItem('expires-at', expiresAt);
                     __WEBPACK_IMPORTED_MODULE_6_axios___default.a.defaults.headers.common['Authorization'] = token;
                     commit('AUTH_SUCCESS', token);
+                    commit('LOADING', false);
                     dispatch('USER_REQUEST');
                     resolve(response);
                 }).catch(function (error) {
@@ -22693,6 +22699,9 @@ var store = new __WEBPACK_IMPORTED_MODULE_4_vuex__["a" /* default */].Store({
         },
         AUTH_ERROR: function AUTH_ERROR(state) {
             state.status = 'error';
+        },
+        LOADING: function LOADING(state, value) {
+            state.loading = value;
         }
     }
 });
@@ -22731,6 +22740,9 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
         name: 'dashboard',
         component: __WEBPACK_IMPORTED_MODULE_7__views_admin_Dashboard___default.a,
         beforeEnter: ifAuthenticated
+    }, {
+        path: '/reset',
+        name: 'reset'
     }]
 });
 
@@ -78269,15 +78281,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            nomUtilisateur: null,
-            motDePasse: null,
-            seSouvenir: false
+            nomUtilisateur: '',
+            motDePasse: '',
+            seSouvenir: false,
+            error: false,
+            errorMessage: ''
         };
     },
     mounted: function mounted() {
@@ -78294,11 +78316,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 motDePasse = this.motDePasse,
                 seSouvenir = this.seSouvenir;
 
-
             console.log({ nomUtilisateur: nomUtilisateur, motDePasse: motDePasse, seSouvenir: seSouvenir });
 
             this.$store.dispatch('AUTH_REQUEST', { nomUtilisateur: nomUtilisateur, motDePasse: motDePasse, seSouvenir: seSouvenir }).then(function () {
                 _this.$router.push('dashboard');
+            }).catch(function (response) {
+                _this.error = true;
+                _this.errorMessage = "La connexion a échoué ! Veuillez vérifier vos identifants.";
             });
         },
         motDePasseOublie: function motDePasseOublie(event) {}
@@ -78319,71 +78343,143 @@ var render = function() {
     [
       _vm._m(0),
       _vm._v(" "),
-      _c("ui-textbox", {
-        attrs: {
-          "floating-label": "",
-          label: "Nom utilisateur",
-          required: true,
-          placeholder: "Entre votre nom d'utilisateur"
-        },
-        model: {
-          value: _vm.nomUtilisateur,
-          callback: function($$v) {
-            _vm.nomUtilisateur = $$v
-          },
-          expression: "nomUtilisateur"
-        }
-      }),
-      _vm._v(" "),
-      _c("ui-textbox", {
-        attrs: {
-          "floating-label": "",
-          label: "Mot de passe",
-          required: true,
-          type: "password"
-        },
-        model: {
-          value: _vm.motDePasse,
-          callback: function($$v) {
-            _vm.motDePasse = $$v
-          },
-          expression: "motDePasse"
-        }
-      }),
-      _vm._v(" "),
       _c(
-        "ui-checkbox",
+        "form",
         {
-          model: {
-            value: _vm.seSouvenir,
-            callback: function($$v) {
-              _vm.seSouvenir = $$v
-            },
-            expression: "seSouvenir"
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.seConnecter($event)
+            }
           }
         },
-        [_vm._v("Se souvenir de moi")]
-      ),
-      _vm._v(" "),
-      _c(
-        "ui-button",
-        {
-          attrs: { color: "primary", size: "normal", raised: "" },
-          on: { click: _vm.seConnecter }
-        },
-        [_vm._v("Se connecter")]
-      ),
-      _vm._v(" "),
-      _c(
-        "ui-button",
-        {
-          attrs: { color: "primary", size: "normal", raised: "" },
-          on: { click: _vm.motDePasseOublie }
-        },
-        [_vm._v("Mot de passe oublié ?")]
+        [
+          _c("div", { staticClass: "input-field" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.nomUtilisateur,
+                  expression: "nomUtilisateur"
+                }
+              ],
+              staticClass: "validate",
+              attrs: { required: "", id: "login", type: "text" },
+              domProps: { value: _vm.nomUtilisateur },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.nomUtilisateur = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "login" } }, [_vm._v("Login")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "input-field" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.motDePasse,
+                  expression: "motDePasse"
+                }
+              ],
+              staticClass: "validate",
+              attrs: { id: "password", type: "password", required: "" },
+              domProps: { value: _vm.motDePasse },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.motDePasse = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "password" } }, [
+              _vm._v("Mot de passe")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.seSouvenir,
+                  expression: "seSouvenir"
+                }
+              ],
+              attrs: { type: "checkbox", id: "seSouvenir" },
+              domProps: {
+                checked: Array.isArray(_vm.seSouvenir)
+                  ? _vm._i(_vm.seSouvenir, null) > -1
+                  : _vm.seSouvenir
+              },
+              on: {
+                change: function($event) {
+                  var $$a = _vm.seSouvenir,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 && (_vm.seSouvenir = $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        (_vm.seSouvenir = $$a
+                          .slice(0, $$i)
+                          .concat($$a.slice($$i + 1)))
+                    }
+                  } else {
+                    _vm.seSouvenir = $$c
+                  }
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "seSouvenir" } }, [
+              _vm._v("Se souvenir de moi")
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "ui-alert",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.error,
+                  expression: "error"
+                }
+              ],
+              attrs: { type: "error" },
+              on: { dismiss: _vm.error }
+            },
+            [_vm._v("\n            " + _vm._s(_vm.errorMessage) + "\n        ")]
+          ),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _c("router-link", { attrs: { to: { name: "reset" } } }, [
+            _c("a", { staticClass: "waves-effect waves-light btn" }, [
+              _vm._v("Mot de passe oublié ?")
+            ])
+          ])
+        ],
+        1
       )
-    ],
-    1
+    ]
   )
 }
 var staticRenderFns = [
@@ -78401,6 +78497,22 @@ var staticRenderFns = [
         [_vm._v("Connectez-vous !")]
       )
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn waves-effect waves-light",
+        attrs: { type: "submit", name: "action" }
+      },
+      [
+        _vm._v("Se connecter\n            "),
+        _c("i", { staticClass: "material-icons right" }, [_vm._v("send")])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -78498,7 +78610,7 @@ exports = module.exports = __webpack_require__(7)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -78814,8 +78926,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 var account_options = [{
@@ -78835,6 +78945,12 @@ var account_options = [{
     computed: {
         is_authenticated: function is_authenticated() {
             return this.$store.getters.isAuthenticated;
+        },
+        nom_utilisateur: function nom_utilisateur() {
+            return this.$store.getters.nomUtilisateur;
+        },
+        is_loading: function is_loading() {
+            return this.$store.getters.isLoading;
         }
     },
 
@@ -78865,8 +78981,8 @@ var render = function() {
         "progress-position": "top",
         type: "colored",
         "text-color": "white",
-        title: "Login",
-        raised: true
+        raised: true,
+        loading: _vm.is_loading
       }
     },
     [
@@ -78880,7 +78996,7 @@ var render = function() {
         [
           _vm.is_authenticated
             ? _c(
-                "ui-icon-button",
+                "ui-button",
                 {
                   ref: "dropdownAccount",
                   attrs: {
@@ -78904,7 +79020,12 @@ var render = function() {
                       }
                     },
                     slot: "dropdown"
-                  })
+                  }),
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.nom_utilisateur) +
+                      "\n        "
+                  )
                 ],
                 1
               )

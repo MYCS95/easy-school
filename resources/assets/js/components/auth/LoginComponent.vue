@@ -4,26 +4,34 @@
             <span class="center-align bold flow-text" style="font-weight:bold;">Connectez-vous !</span>
         </div>
 
-        <ui-textbox
-            floating-label
-            label="Nom utilisateur"
-            :required="true"
-            v-model="nomUtilisateur"
-            placeholder="Entre votre nom d'utilisateur"></ui-textbox>
+        <form @submit.prevent="seConnecter">
+            <div class="input-field">
+                <input required id="login" type="text" class="validate" v-model="nomUtilisateur">
+                <label for="login">Login</label>
+            </div>
 
-        <ui-textbox
-            floating-label
-            label="Mot de passe"
-            :required="true"
-            v-model="motDePasse"
-            type="password"></ui-textbox>
+            <div class="input-field">
+                <input id="password" type="password" required class="validate" v-model="motDePasse">
+                <label for="password">Mot de passe</label>
+            </div>
 
-        <ui-checkbox
-            v-model="seSouvenir">Se souvenir de moi</ui-checkbox>
+            <p>
+                <input type="checkbox" id="seSouvenir" v-model="seSouvenir"/>
+                <label for="seSouvenir">Se souvenir de moi</label>
+            </p>
 
-        <ui-button color="primary" size="normal" raised v-on:click="seConnecter">Se connecter</ui-button>
+            <ui-alert @dismiss="error" type="error" v-show="error">
+                {{ errorMessage }}
+            </ui-alert>
 
-        <ui-button color="primary" size="normal" raised v-on:click="motDePasseOublie">Mot de passe oublié ?</ui-button>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Se connecter
+                <i class="material-icons right">send</i>
+            </button>
+
+            <router-link :to="{ name: 'reset' }">
+                <a class="waves-effect waves-light btn">Mot de passe oublié ?</a>
+            </router-link>
+        </form>
     </div>
 </template>
 
@@ -33,9 +41,11 @@
     export default {
         data() {
             return {
-                nomUtilisateur: null,
-                motDePasse: null,
-                seSouvenir: false
+                nomUtilisateur: '',
+                motDePasse: '',
+                seSouvenir: false,
+                error: false,
+                errorMessage: ''
             }
         },
 
@@ -47,11 +57,13 @@
             seConnecter: function (event) {
                 event.preventDefault();
                 const { nomUtilisateur, motDePasse, seSouvenir } = this
-
                 console.log({nomUtilisateur, motDePasse, seSouvenir})
 
                 this.$store.dispatch('AUTH_REQUEST', {nomUtilisateur, motDePasse, seSouvenir}).then(() => {
                     this.$router.push('dashboard')
+                }).catch( (response) => {
+                    this.error = true
+                    this.errorMessage = "La connexion a échoué ! Veuillez vérifier vos identifants."
                 })
             },
             motDePasseOublie: function (event) {

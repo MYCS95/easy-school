@@ -45,26 +45,28 @@ if (token) {
 const store = new Vuex.Store({
     state: {
         token: localStorage.getItem('user-token') || '',
-        status: ''
+        status: '',
+        loading: false
     },
 
     getters: {
         isAuthenticated: state => {
             return !!state.token
         },
-        isNotAuthenticated: state => {
-            if(!state.token)
-                return true
-            else
-                return false
+        nomUtilisateur: () => {
+            return "MOLOU YAO CLAIR SAMSON"
         },
-        authState: state => state.status
+        authState: state => state.status,
+        isLoading: state => {
+            return state.loading
+        }
     },
 
     actions: {
         AUTH_REQUEST ({commit, dispatch}, user) {
             return new Promise((resolve, reject) => { //Une promesse pour la redirection
                 commit('AUTH_REQUEST')
+                commit('LOADING', true)
                 axios({
                     method: 'post',
                     url: 'api/auth/login',
@@ -83,9 +85,9 @@ const store = new Vuex.Store({
                     localStorage.setItem('expires-at', expiresAt)
                     axios.defaults.headers.common['Authorization'] = token
                     commit('AUTH_SUCCESS', token)
+                    commit('LOADING', false)
                     dispatch('USER_REQUEST')
                     resolve(response)
-
                 }).catch(error => {
                     commit('AUTH_ERROR', error)
                     localStorage.removeItem('user-token')
@@ -121,6 +123,9 @@ const store = new Vuex.Store({
         },
         AUTH_ERROR (state) {
             state.status = 'error'
+        },
+        LOADING (state, value) {
+            state.loading = value
         }
     },
 })
@@ -164,6 +169,10 @@ const router = new VueRouter({
             name: 'dashboard',
             component: Dashboard,
             beforeEnter: ifAuthenticated
+        },
+        {
+            path: '/reset',
+            name: 'reset'
         }
     ]
 })
